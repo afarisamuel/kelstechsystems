@@ -8,7 +8,7 @@
     >
         <div class="carousel-inner">
             {% for carousel in carousels %}
-            <div class="carousel-item active">
+            <div class="carousel-item {% if forloop.counter == 1 %} active {% endif %}">
                 <img class="w-100" src="{{ carousel.image.url }}" alt="Image" />
                 <div
                     class="carousel-caption d-flex flex-column align-items-center justify-content-center"
@@ -533,8 +533,7 @@
                     <div class="p-4">
                         <div class="d-flex mb-3">
                             <small class="me-3"
-                                ><i class="far fa-user text-primary me-2"></i>{{
-                                blog.author.username | capfirst }}
+                                ><i class="far fa-user text-primary me-2"></i>{{ blog.author.username | capfirst }}
                             </small>
                             <small
                                 ><i
@@ -544,7 +543,7 @@
                             >
                         </div>
                         <h4 class="mb-3">{{ blog.subTitle }}</h4>
-                        <p>{{ blog.content | slice:"0:100" }}</p>
+
                         <a
                             class="text-uppercase"
                             href="{% url 'details' blog.pk %}"
