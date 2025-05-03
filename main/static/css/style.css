@@ -16,6 +16,13 @@
     animation: sk-rotateplane 1.2s infinite ease-in-out;
 }
 
+*{
+     font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-style: normal;
+}
+
 @-webkit-keyframes sk-rotateplane {
     0% {
         -webkit-transform: perspective(120px);
@@ -82,7 +89,7 @@ h6,
 
 /*** Button ***/
 .btn {
-    font-family: "Nunito", sans-serif;
+    font-family: "Montserrat", sans-serif;
     font-weight: 600;
     transition: 0.5s;
     border-right: 50px !important;
@@ -170,11 +177,11 @@ h6,
 @media (max-width: 991.98px) {
     .navbar-dark {
         position: static !important;
-        padding: 10px 5px !important;
-        background: rgba(0,0,0, 0.9) !important;
+        padding: 15px 12px !important;
+        background: var(--dark) !important;
     }
     .collapse, .navbar-nav{
-       background: transparent !important;
+       background: var(--dark)  !important;
     }
     .book{
         display: none;
@@ -187,6 +194,9 @@ h6,
     background-size: cover;
         height: 450px !important;
 }
+    .carousel-control-prev, .carousel-control-next{
+        display: none !important;
+    }
 .carousel-inner, .carousel-inner img{
     height: 450px;
 }
