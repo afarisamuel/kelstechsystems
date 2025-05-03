@@ -1,0 +1,15 @@
+{% extends "admin/base.html" %}
+
+{% load static %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('Kelstech Systems Admin') }}{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">
+    <a href="{% url 'admin:index' %}">
+        <img src="{% static 'img/logo2.svg' %}" height="40px" />
+    </a>
+</h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
