@@ -1,52 +1,7 @@
-{% extends 'main/base.html' %} {% load static %} {% block content %}
+{% extends 'main/base.html' %} {% load static %}
 
-<!-- Navbar & Carousel Start -->
-<div class="container-fluid position-relative p-0">
-    <nav class="navbar navbar-expand-lg navbar-dark px-5 py-3 py-lg-0">
-        <a href="{% url 'index' %}" class="navbar-brand p-0">
-            <h1 class="m-0">
-                <span class="logo"
-                    ><img
-                        src="{% static 'img/logo2.svg' %}"
-                        alt=""
-                        width="50px"
-                        style="color: #fff !important" /></span
-                ><span class="name">Kelstech Systems</span>
-            </h1>
-        </a>
-        <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarCollapse"
-        >
-            <span class="fa fa-bars"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <div class="navbar-nav ms-auto py-0">
-                <a href="{% url 'index' %}" class="nav-item nav-link active"
-                    >Home</a
-                >
-                <a href="{% url 'about' %}" class="nav-item nav-link">About</a>
-                <a href="{% url 'service' %}" class="nav-item nav-link"
-                    >Services</a
-                >
-                <a href="{% url 'blog' %}" class="nav-item nav-link">Blog</a>
-                <a href="{% url 'contact' %}" class="nav-item nav-link"
-                    >Contact</a
-                >
-            </div>
-            <a
-                href="#"
-                class="btn btn-primary py-2 px-4 ms-3"
-                data-bs-toggle="modal"
-                data-bs-target="#searchModal"
-                >Book Appointment</a
-            >
-        </div>
-    </nav>
-
-    <div
+{% block navelement %}
+	  <div
         id="header-carousel"
         class="carousel slide carousel-fade"
         data-bs-ride="carousel"
@@ -70,15 +25,12 @@
                             {{ carousel.description }}
                         </h1>
                         <a
-                            href="quote.html"
-                            class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft"
-                            >Free Quote</a
-                        >
-                        <a
-                            href=""
-                            class="btn btn-outline-light py-md-3 px-md-5 animated slideInRight"
-                            >Contact Us</a
-                        >
+                    href="#"
+                    class="btn btn-primary py-2 px-4 ms-3"
+                    data-bs-toggle="modal"
+                    data-bs-target="#searchModal"
+            >Book Appointment</a
+            >
                     </div>
                 </div>
             </div>
@@ -103,8 +55,10 @@
             <span class="visually-hidden">Next</span>
         </button>
     </div>
-</div>
-<!-- Navbar & Carousel End -->
+{% endblock navelement %}
+
+{% block content %}
+
 
 <!-- Facts Start -->
 <div class="container-fluid facts py-5 pt-lg-0">
@@ -329,7 +283,7 @@
                         <i class="fa fa-shield-alt text-white"></i>
                     </div>
                     <h4 class="mb-3">{{ service.title }}</h4>
-                    <p class="m-0">{{ service.description }}</p>
+                    <p class="m-0">{{ service.subTitle }}</p>
                     <a class="btn btn-lg btn-primary rounded" href="">
                         <i class="bi bi-arrow-right"></i>
                     </a>
@@ -369,12 +323,7 @@
                     </div>
                 </div>
                 <p class="mb-4">
-                    Eirmod sed tempor lorem ut dolores. Aliquyam sit sadipscing
-                    kasd ipsum. Dolor ea et dolore et at sea ea at dolor, justo
-                    ipsum duo rebum sea invidunt voluptua. Eos vero eos vero ea
-                    et dolore eirmod et. Dolores diam duo invidunt lorem. Elitr
-                    ut dolores magna sit. Sea dolore sanctus sed et. Takimata
-                    takimata sanctus sed.
+                   {{ home.info }}
                 </p>
                 <div
                     class="d-flex align-items-center mt-2 wow zoomIn"

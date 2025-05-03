@@ -11,7 +11,7 @@ from main.models import (
     Team,
     Testimonials,
     BlogPost,
-    ChooseUs,
+    ChooseUs, HomeRequest,
 )
 
 
@@ -19,6 +19,7 @@ from main.models import (
 def index(request):
     carousels = HomeCarousel.objects.all()
     abouts = About.objects.all()
+    home_info = HomeRequest.objects.all()
     contacts = ContactUs.objects.all()
     chooses = ChooseUs.objects.all()
     services = Service.objects.all()
@@ -26,11 +27,14 @@ def index(request):
     teams = Team.objects.all()
     blogs = BlogPost.objects.all()
     about = None
+    home = None
     contact = None
     if len(abouts) > 0:
         about = abouts[0]
     if len(contacts) > 0:
         contact = contacts[0]
+    if len(home_info) > 0:
+        home = home_info[0]
     context = {
         "carousels": carousels,
         "about": about,
@@ -40,6 +44,7 @@ def index(request):
         "testimonails": testimonails,
         "teams": teams,
         "blogs": blogs,
+        "home": home,
     }
     return render(request, "main/index.html", context)
 
@@ -48,6 +53,7 @@ def about(request):
     teams = Team.objects.all()
     abouts = About.objects.all()
     contacts = ContactUs.objects.all()
+    services = Service.objects.all()
     about = None
     contact = None
     if len(abouts) > 0:
@@ -59,18 +65,20 @@ def about(request):
         "teams": teams,
         "about": about,
         "contact": contact,
+        "services": services,
     }
     return render(request, "main/about.html", context)
 
 
 def contact(request):
     contacts = ContactUs.objects.all()
-
+    services = Service.objects.all()
     contact = None
     if len(contacts) > 0:
         contact = contacts[0]
     context = {
         "contact": contact,
+        "services": services,
     }
     return render(request, "main/contact.html", context)
 
@@ -79,6 +87,7 @@ def service(request):
     services = Service.objects.all()
     testimonails = Testimonials.objects.all()
     contacts = ContactUs.objects.all()
+
 
     contact = None
     if len(contacts) > 0:
@@ -94,29 +103,31 @@ def service(request):
 def blog(request):
     blogs = BlogPost.objects.all().order_by("-timestamp")
     contacts = ContactUs.objects.all()
-
+    services = Service.objects.all()
     contact = None
     if len(contacts) > 0:
         contact = contacts[0]
     context = {
         "blogs": blogs,
         "contact": contact,
+        "services": services,
     }
     return render(request, "main/blog.html", context)
 
 
 def testimonails(request):
     contacts = ContactUs.objects.all()
-
+    services = Service.objects.all()
     contact = None
     if len(contacts) > 0:
         contact = contacts[0]
-    context = {"contact": contact}
+    context = {"contact": contact, "services": services,}
     return render(request, "main/testimonial.html", context)
 
 
 def blog_details(request, id):
     blogs = BlogPost.objects.all().order_by("-timestamp")
+    services = Service.objects.all()
     blog = get_object_or_404(BlogPost, pk=id)
     contacts = ContactUs.objects.all()
 
@@ -127,9 +138,26 @@ def blog_details(request, id):
         "blog": blog,
         "contact": contact,
         "blogs": blogs,
+        "services": services,
     }
 
     return render(request, "main/detail.html", context)
+
+def service_details(request, id):
+    services = Service.objects.all()
+    service = get_object_or_404(Service, pk=id)
+    contacts = ContactUs.objects.all()
+
+    contact = None
+    if len(contacts) > 0:
+        contact = contacts[0]
+    context = {
+        "service": service,
+        "contact": contact,
+        "services": services,
+    }
+
+    return render(request, "main/service_detail.html", context)
 
 def send_message(request):
     if request.method == "POST":

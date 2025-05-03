@@ -29,6 +29,8 @@ class ChooseUs(models.Model):
 
 class Service(models.Model):
     title = models.CharField(max_length=100)
+    image = models.ImageField(default='default_image.jpg')
+    subTitle = models.CharField(max_length=300, default="")
     description = models.TextField()
     def __str__(self):
         return self.title
@@ -67,6 +69,7 @@ class ContactUs(models.Model):
     phone = models.CharField(max_length=100)
     email = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
+    footer_text = models.TextField(default="")
 
     def __str__(self):
         return self.email
@@ -88,6 +91,10 @@ class SocialLink(models.Model):
     def __str__(self):
         return self.title
 
+class HomeRequest(models.Model):
+    info = models.TextField()
+    def __str__(self):
+        return self.info
 
 
 class Appointment(models.Model):

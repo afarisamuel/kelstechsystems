@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.db import models
+from tinymce.widgets import TinyMCE
 
 # Register your models here.
 from main.models import (
@@ -12,7 +14,7 @@ from main.models import (
     ChooseUs,
     Message,
     SocialLink,
-    Appointment,
+    Appointment, HomeRequest,
 )
 
 
@@ -38,6 +40,9 @@ class SocialLinkAdmin(admin.ModelAdmin):
 class TeamAdmin(admin.ModelAdmin):
     list_display=["name", "role", ]
 
+@admin.register(HomeRequest)
+class HomeRequestAdmin(admin.ModelAdmin):
+    list_display=["info", ]
 
 @admin.register(ContactUs)
 class ContactUsAdmin(admin.ModelAdmin):
@@ -45,7 +50,10 @@ class ContactUsAdmin(admin.ModelAdmin):
 
 @admin.register(BlogPost)
 class BlogPostAdmin(admin.ModelAdmin):
-    list_display=["author", "title", "subTitle", "content", "timestamp",  ]
+    formfield_overrides = {
+        models.TextField: {'widget': TinyMCE()}
+    }
+    list_display=["author", "title", "subTitle", "timestamp",  ]
 
 
 
@@ -57,7 +65,11 @@ class AppointmentAdmin(admin.ModelAdmin):
 
 @admin.register(Service)
 class ServiceAdmin(admin.ModelAdmin):
-    list_display=["title", "description", ]
+    formfield_overrides = {
+        models.TextField: {'widget': TinyMCE()}
+    }
+    list_display=["title", "subTitle", ]
+
 
 @admin.register(ChooseUs)
 class ChooseUsAdmin(admin.ModelAdmin):
