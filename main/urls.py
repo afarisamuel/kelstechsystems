@@ -12,5 +12,6 @@ urlpatterns = [
     path("services-details/<id>", views.service_details, name="service-details"),
     path("testimonials", views.testimonails, name="testimonails"),
     path("sendmessage", views.send_message, name="sendmessage"),
-    path("bookappointment", views.book_appointment, name="bookappointment")
+    path("bookappointment", views.book_appointment, name="bookappointment"),
+    path(".well-known/acme-challenge/<slug>", views.well_known, name="wellknown"),
 ]

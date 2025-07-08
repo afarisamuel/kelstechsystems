@@ -1,4 +1,4 @@
-from django.core.exceptions import RequestDataTooBig
+
 from django.shortcuts import redirect, render, get_object_or_404
 
 from main.models import (
@@ -199,3 +199,6 @@ def book_appointment(request):
         appointment.save()
 
     return redirect("/")
+
+def well_known(request, slug):
+    return render(request, "main/well.html")
