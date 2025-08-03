@@ -12,6 +12,8 @@ from main.models import (
     Testimonials,
     BlogPost,
     ChooseUs, HomeRequest,
+    Statistics,
+    SocialLink
 )
 
 
@@ -20,21 +22,39 @@ def index(request):
     carousels = HomeCarousel.objects.all()
     abouts = About.objects.all()
     home_info = HomeRequest.objects.all()
+    statistics = Statistics.objects.all()
     contacts = ContactUs.objects.all()
     chooses = ChooseUs.objects.all()
     services = Service.objects.all()
     testimonails = Testimonials.objects.all()
     teams = Team.objects.all()
     blogs = BlogPost.objects.all()
+    socials = SocialLink.objects.all()
     about = None
     home = None
     contact = None
+    statistic = None
+    social = None
+    fb = None
+    x = None
+    yt = None
+    lk = None
+    ig = None
     if len(abouts) > 0:
         about = abouts[0]
     if len(contacts) > 0:
         contact = contacts[0]
     if len(home_info) > 0:
         home = home_info[0]
+    if len(statistics) > 0:
+        statistic = statistics[0]
+    if len(socials) > 0:
+        social = socials[0]
+        fb = social.facebook
+        yt = social.youtube
+        x = social.x
+        lk = social.linkedin
+        ig = social.instagram
     context = {
         "carousels": carousels,
         "about": about,
@@ -45,6 +65,12 @@ def index(request):
         "teams": teams,
         "blogs": blogs,
         "home": home,
+        "statistic":statistic,
+        "yt": yt,
+        "ig": ig,
+        "lk": lk,
+        "fb": fb,
+        "x": x,
     }
     return render(request, "main/index.html", context)
 
@@ -54,18 +80,36 @@ def about(request):
     abouts = About.objects.all()
     contacts = ContactUs.objects.all()
     services = Service.objects.all()
+    socials = SocialLink.objects.all()
     about = None
     contact = None
+    fb = None
+    x = None
+    yt = None
+    lk = None
+    ig = None
     if len(abouts) > 0:
         about = abouts[0]
     if len(contacts) > 0:
         contact = contacts[0]
+    if len(socials) > 0:
+        social = socials[0]
+        fb = social.facebook
+        yt = social.youtube
+        x = social.x
+        lk = social.linkedin
+        ig = social.instagram
 
     context = {
         "teams": teams,
         "about": about,
         "contact": contact,
         "services": services,
+        "yt": yt,
+        "ig": ig,
+        "lk": lk,
+        "fb": fb,
+        "x": x,
     }
     return render(request, "main/about.html", context)
 
@@ -73,12 +117,30 @@ def about(request):
 def contact(request):
     contacts = ContactUs.objects.all()
     services = Service.objects.all()
+    socials = SocialLink.objects.all()
     contact = None
+    fb = None
+    x = None
+    yt = None
+    lk = None
+    ig = None
     if len(contacts) > 0:
         contact = contacts[0]
+    if len(socials) > 0:
+        social = socials[0]
+        fb = social.facebook
+        yt = social.youtube
+        x = social.x
+        lk = social.linkedin
+        ig = social.instagram
     context = {
         "contact": contact,
         "services": services,
+        "yt": yt,
+        "ig": ig,
+        "lk": lk,
+        "fb": fb,
+        "x": x,
     }
     return render(request, "main/contact.html", context)
 
@@ -87,15 +149,31 @@ def service(request):
     services = Service.objects.all()
     testimonails = Testimonials.objects.all()
     contacts = ContactUs.objects.all()
-
-
+    socials = SocialLink.objects.all()
     contact = None
+    fb = None
+    x = None
+    yt = None
+    lk = None
+    ig = None
     if len(contacts) > 0:
         contact = contacts[0]
+    if len(socials) > 0:
+        social = socials[0]
+        fb = social.facebook
+        yt = social.youtube
+        x = social.x
+        lk = social.linkedin
+        ig = social.instagram
     context = {
         "services": services,
         "testimonails": testimonails,
         "contact": contact,
+        "yt": yt,
+        "ig": ig,
+        "lk": lk,
+        "fb": fb,
+        "x": x,
     }
     return render(request, "main/service.html", context)
 
@@ -104,13 +182,31 @@ def blog(request):
     blogs = BlogPost.objects.all().order_by("-timestamp")
     contacts = ContactUs.objects.all()
     services = Service.objects.all()
+    socials = SocialLink.objects.all()
     contact = None
+    fb = None
+    x = None
+    yt = None
+    lk = None
+    ig = None
     if len(contacts) > 0:
         contact = contacts[0]
+    if len(socials) > 0:
+        social = socials[0]
+        fb = social.facebook
+        yt = social.youtube
+        x = social.x
+        lk = social.linkedin
+        ig = social.instagram
     context = {
         "blogs": blogs,
         "contact": contact,
         "services": services,
+        "yt": yt,
+        "ig": ig,
+        "lk": lk,
+        "fb": fb,
+        "x": x,
     }
     return render(request, "main/blog.html", context)
 
@@ -118,10 +214,27 @@ def blog(request):
 def testimonails(request):
     contacts = ContactUs.objects.all()
     services = Service.objects.all()
+    socials = SocialLink.objects.all()
     contact = None
+    fb = None
+    x = None
+    yt = None
+    lk = None
+    ig = None
     if len(contacts) > 0:
         contact = contacts[0]
-    context = {"contact": contact, "services": services,}
+    if len(socials) > 0:
+        social = socials[0]
+        fb = social.facebook
+        yt = social.youtube
+        x = social.x
+        lk = social.linkedin
+        ig = social.instagram
+    context = {"contact": contact, "services": services, "yt": yt,
+        "ig": ig,
+        "lk": lk,
+        "fb": fb,
+        "x": x,}
     return render(request, "main/testimonial.html", context)
 
 
@@ -130,15 +243,34 @@ def blog_details(request, id):
     services = Service.objects.all()
     blog = get_object_or_404(BlogPost, pk=id)
     contacts = ContactUs.objects.all()
+    socials = SocialLink.objects.all()
 
     contact = None
+    fb = None
+    x = None
+    yt = None
+    lk = None
+    ig = None
+
     if len(contacts) > 0:
         contact = contacts[0]
+    if len(socials) > 0:
+        social = socials[0]
+        fb = social.facebook
+        yt = social.youtube
+        x = social.x
+        lk = social.linkedin
+        ig = social.instagram
     context = {
         "blog": blog,
         "contact": contact,
         "blogs": blogs,
         "services": services,
+        "yt": yt,
+        "ig": ig,
+        "lk": lk,
+        "fb": fb,
+        "x": x,
     }
 
     return render(request, "main/detail.html", context)
@@ -147,14 +279,33 @@ def service_details(request, id):
     services = Service.objects.all()
     service = get_object_or_404(Service, pk=id)
     contacts = ContactUs.objects.all()
+    socials = SocialLink.objects.all()
 
     contact = None
+    fb = None
+    x = None
+    yt = None
+    lk = None
+    ig = None
+
     if len(contacts) > 0:
         contact = contacts[0]
+    if len(socials) > 0:
+        social = socials[0]
+        fb = social.facebook
+        yt = social.youtube
+        x = social.x
+        lk = social.linkedin
+        ig = social.instagram
     context = {
         "service": service,
         "contact": contact,
         "services": services,
+        "yt": yt,
+        "ig": ig,
+        "lk": lk,
+        "fb": fb,
+        "x": x,
     }
 
     return render(request, "main/service_detail.html", context)

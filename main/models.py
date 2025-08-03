@@ -2,6 +2,8 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
+SOCIAL_MEDIA = (("FB", "FACEBOOK"), ("IG", "INSTAGRAM"), ("X", "X(TWITTER)"), ("YT", "YOUTUBE"), ("LN", "LINKEDIN"))
+
 class HomeCarousel(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
@@ -14,6 +16,9 @@ class HomeCarousel(models.Model):
 class About(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
+    vision = models.TextField(default="")
+    mission = models.TextField(default="")
+    values = models.TextField(default="")
     image = models.ImageField()
     def __str__(self):
         return self.title
@@ -23,6 +28,7 @@ class About(models.Model):
 class ChooseUs(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
+    icon = models.ImageField(default="")
     def __str__(self):
         return self.title
 
@@ -30,6 +36,7 @@ class ChooseUs(models.Model):
 class Service(models.Model):
     title = models.CharField(max_length=100)
     image = models.ImageField(default='default_image.jpg')
+    icons = models.ImageField(default='icons.jpg')
     subTitle = models.CharField(max_length=300, default="")
     description = models.TextField()
     def __str__(self):
@@ -37,7 +44,6 @@ class Service(models.Model):
 
 
 class Testimonials(models.Model):
-
     clientName = models.CharField(max_length=100)
     clientProfession = models.CharField(max_length=100)
     message = models.TextField()
@@ -86,10 +92,13 @@ class Message(models.Model):
 
 
 class SocialLink(models.Model):
-    title = models.CharField(max_length=100)
-    link = models.URLField()
+    facebook = models.URLField(default="")
+    x = models.URLField(default="")
+    youtube = models.URLField(default="")
+    instagram = models.URLField(default="")
+    linkedin = models.URLField(default="")
     def __str__(self):
-        return self.title
+        return self.facebook
 
 class HomeRequest(models.Model):
     info = models.TextField()
@@ -107,3 +116,11 @@ class Appointment(models.Model):
 
     def __str__(self):
         return self.name
+
+class Statistics(models.Model):
+    clients = models.IntegerField(default=0)
+    projects = models.IntegerField(default=0)
+    awards = models.IntegerField(default=0)
+
+    def __str__(self):
+        return str(self.projects)

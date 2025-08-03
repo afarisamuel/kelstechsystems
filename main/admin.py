@@ -14,7 +14,7 @@ from main.models import (
     ChooseUs,
     Message,
     SocialLink,
-    Appointment, HomeRequest,
+    Appointment, HomeRequest,Statistics,
 )
 
 
@@ -34,7 +34,7 @@ class TestimonialsAdmin(admin.ModelAdmin):
 
 @admin.register(SocialLink)
 class SocialLinkAdmin(admin.ModelAdmin):
-    list_display=["title", "link", ]
+    list_display=["facebook", "youtube","x","linkedin","instagram" ]
 
 @admin.register(Team)
 class TeamAdmin(admin.ModelAdmin):
@@ -79,6 +79,9 @@ class ChooseUsAdmin(admin.ModelAdmin):
 
 @admin.register(About)
 class AboutAdmin(admin.ModelAdmin):
+    formfield_overrides = {
+        models.TextField: {'widget': TinyMCE()}
+    }
     list_display=["title", "description", ]
 
 @admin.register(HomeCarousel)
@@ -89,3 +92,7 @@ class HomeCarouselAdmin(admin.ModelAdmin):
 @admin.register(Message)
 class MessageAdmin(admin.ModelAdmin):
     list_display=["name", "email", "subject", "message"]
+
+@admin.register(Statistics)
+class StatisticsAdmin(admin.ModelAdmin):
+    list_display=["clients", "awards", "projects"]
